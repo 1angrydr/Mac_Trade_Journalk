@@ -14,8 +14,6 @@ final class TradeStore: ObservableObject {
 
     @Published private(set) var activeTrades: [ActiveTrade] = []
     @Published private(set) var closedTrades: [ClosedTrade] = []
-    @Published private(set) var syncStatus: String = "Not synced"
-    @Published private(set) var isSyncing: Bool = false
 
     // MARK: - Persistence Keys
 
@@ -28,7 +26,6 @@ final class TradeStore: ObservableObject {
 
     init() {
         load()
-        Task { await pullFromCloud() }
     }
 
     // MARK: - Load / Save
@@ -58,20 +55,17 @@ final class TradeStore: ObservableObject {
     func addActive(_ trade: ActiveTrade) {
         activeTrades.append(trade)
         persist()
-        Task { try? await CloudKitService.shared.saveActiveTrade(trade) }
     }
 
     func updateActive(_ trade: ActiveTrade) {
         guard let i = activeTrades.firstIndex(where: { $0.id == trade.id }) else { return }
         activeTrades[i] = trade
         persist()
-        Task { try? await CloudKitService.shared.saveActiveTrade(trade) }
     }
 
     func deleteActive(id: UUID) {
         activeTrades.removeAll { $0.id == id }
         persist()
-        Task { try? await CloudKitService.shared.deleteActiveTrade(id) }
     }
 
     // MARK: - Close Trade
@@ -89,10 +83,6 @@ final class TradeStore: ObservableObject {
         )
         closedTrades.append(closed)
         persist()
-        Task {
-            try? await CloudKitService.shared.deleteActiveTrade(trade.id)
-            try? await CloudKitService.shared.saveClosedTrade(closed)
-        }
     }
 
     // MARK: - Closed Trade Operations
@@ -101,68 +91,17 @@ final class TradeStore: ObservableObject {
         guard let i = closedTrades.firstIndex(where: { $0.id == trade.id }) else { return }
         closedTrades[i] = trade
         persist()
-        Task { try? await CloudKitService.shared.saveClosedTrade(trade) }
     }
 
     func deleteClosed(id: UUID) {
         closedTrades.removeAll { $0.id == id }
         persist()
-        Task { try? await CloudKitService.shared.deleteClosedTrade(id) }
     }
 
     func resetAll() {
-        let activeIDs = activeTrades.map(\.id)
-        let closedIDs = closedTrades.map(\.id)
         activeTrades.removeAll()
         closedTrades.removeAll()
         persist()
-        Task {
-            for id in activeIDs  { try? await CloudKitService.shared.deleteActiveTrade(id) }
-            for id in closedIDs  { try? await CloudKitService.shared.deleteClosedTrade(id) }
-        }
-    }
-
-    // MARK: - Cloud Sync
-
-    func pullFromCloud() async {
-        guard !isSyncing else { return }
-        isSyncing  = true
-        syncStatus = "Syncing from iCloud…"
-        // Do the network work on a background executor so the
-        // main actor (and all UI) stays fully responsive.
-        do {
-            let (active, closed) = try await Task.detached(priority: .background) {
-                try await CloudKitService.shared.syncFromCloud()
-            }.value
-            // Back on MainActor now — safe to update @Published state
-            activeTrades = active
-            closedTrades = closed
-            persist()
-            syncStatus = "✅ Synced"
-        } catch {
-            syncStatus = "⚠️ iCloud unavailable — using local data"
-        }
-        isSyncing = false
-    }
-
-    func pushToCloud() async {
-        guard !isSyncing else { return }
-        isSyncing = true
-        // Snapshot values before leaving MainActor
-        let activeSnapshot = activeTrades
-        let closedSnapshot = closedTrades
-        do {
-            try await Task.detached(priority: .background) {
-                try await CloudKitService.shared.syncToCloud(
-                    activeTrades: activeSnapshot,
-                    closedTrades: closedSnapshot
-                )
-            }.value
-            syncStatus = "✅ Synced"
-        } catch {
-            syncStatus = "⚠️ Sync failed"
-        }
-        isSyncing = false
     }
 }
 
