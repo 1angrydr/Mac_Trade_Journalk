@@ -8,12 +8,13 @@
 
 /* Begin PBXFileReference section */
 		FDEBB1C12ECBC175009B7078 /* Mac_Trade_Journalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mac_Trade_Journalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDF9919F2F4AC41200BBFBED /* Mac_Trade_Journalk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Mac_Trade_Journalk.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FDEBB1C32ECBC175009B7078 /* Mac_Trade_Journalk */ = {
+		FDEBB1C32ECBC175009B7078 /*  */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "";
+			name = "";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +33,7 @@
 		FDEBB1B82ECBC175009B7078 = {
 			isa = PBXGroup;
 			children = (
-				FDEBB1C32ECBC175009B7078 /* Mac_Trade_Journalk */,
+				FDEBB1C32ECBC175009B7078 /*  */,
 				FDEBB1C22ECBC175009B7078 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -42,6 +43,11 @@
 			children = (
 				FDEBB1C12ECBC175009B7078 /* Mac_Trade_Journalk.app */,
 			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDF991A52F4AC41200BBFBED /* Products */ = {
+			isa = PBXGroup;
 			name = Products;
 			sourceTree = "<group>";
 		};
@@ -61,7 +67,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				FDEBB1C32ECBC175009B7078 /* Mac_Trade_Journalk */,
+				FDEBB1C32ECBC175009B7078 /*  */,
 			);
 			name = Mac_Trade_Journalk;
 			packageProductDependencies = (
@@ -98,6 +104,12 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FDEBB1C22ECBC175009B7078 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FDF991A52F4AC41200BBFBED /* Products */;
+					ProjectRef = FDF9919F2F4AC41200BBFBED /* Mac_Trade_Journalk.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				FDEBB1C02ECBC175009B7078 /* Mac_Trade_Journalk */,
@@ -254,6 +266,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mac_Trade_Journalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -274,7 +287,7 @@
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.fmpublishing.MacTradeJournalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-					SDKROOT = macosx;
+				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -291,6 +304,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mac_Trade_Journalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -311,7 +325,7 @@
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.fmpublishing.MacTradeJournalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-					SDKROOT = macosx;
+				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
