@@ -17,9 +17,9 @@ final class CloudKitService {
     private let logger = Logger(subsystem: "net.fmpublishing.Mac-Trade-Journalk", category: "CloudKit")
     
     private init() {
-        container = CKContainer(identifier: "iCloud.net.fmpublishing.Mac-Trade-Journalk")
+        container = CKContainer(identifier: "iCloud.net.fmpublishing.MacTradeJournalk")
         database = container.privateCloudDatabase
-        logger.info("CloudKit initialized with container: iCloud.net.fmpublishing.Mac-Trade-Journalk")
+        logger.info("CloudKit initialized with container: iCloud.net.fmpublishing.MacTradeJournalk")
     }
     
     func checkAccountStatus() async throws -> CKAccountStatus {
