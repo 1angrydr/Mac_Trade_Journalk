@@ -46,35 +46,6 @@ struct SettingsView: View {
                         }
                     }
 
-                    // MARK: - iCloud Sync
-                    settingsCard(title: "iCloud Sync", icon: "icloud") {
-                        HStack(spacing: 8) {
-                            Image(systemName: store.isSyncing ? "arrow.triangle.2.circlepath" : "checkmark.icloud")
-                                .foregroundColor(store.isSyncing ? .orange : .green)
-                                .font(.system(size: 15))
-                            Text(store.syncStatus)
-                                .font(.appBody)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
-                        .padding(.bottom, 4)
-
-                        HStack(spacing: 12) {
-                            Button {
-                                Task { await store.pullFromCloud() }
-                            } label: {
-                                Label("Pull from iCloud", systemImage: "icloud.and.arrow.down")
-                            }
-                            .glassButton(tint: .blue)
-
-                            Button {
-                                Task { await store.pushToCloud() }
-                            } label: {
-                                Label("Push to iCloud", systemImage: "icloud.and.arrow.up")
-                            }
-                            .glassButton(tint: .blue)
-                        }
-                    }
 
                     // MARK: - Data
                     settingsCard(title: "Data", icon: "internaldrive") {
